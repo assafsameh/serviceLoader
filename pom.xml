@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.example</groupId>
+  <artifactId>serviceLoader</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <properties>
+    <java.version>21</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+
+    <selenium-java.version>4.33.0</selenium-java.version>
+    <testng.version>7.11.0</testng.version>
+  </properties>
+
+  <dependencies>
+
+    <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>${selenium-java.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>${testng.version}</version>
+      <!--  <scope>test</scope> -->
+    </dependency>
+
+  </dependencies>
+
+
+
+  <build>
+    <plugins>
+      <!-- إضافة Surefire plugin وهو المسؤول عن تشغيل TestNG أثناء الـ build -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.2.5</version> <!-- دائما يفضل استخدام أحدث إصدار ثابت -->
+        <configuration>
+          <!-- هنا لا نحتاج إلى testng.xml لأننا نعتمد على SPI -->
+          <suiteXmlFiles></suiteXmlFiles>
+
+          <!-- هذه الخاصية نتركها فاضية لأننا نستخدم SPI -->
+          <properties>
+            <property>
+              <name>listener</name>
+              <value></value>
+            </property>
+          </properties>
+
+          <!-- ضبط surefire ليقوم بإيقاف الـ build في حال فشل أي اختبار -->
+          <testFailureIgnore>false</testFailureIgnore>
+
+          <!-- تحديد أي ملفات اختبار يتم تنفيذها -->
+          <includes>
+            <include>**/*Test.java</include>
+          </includes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+
+</project>
