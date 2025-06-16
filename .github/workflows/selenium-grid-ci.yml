@@ -9,6 +9,7 @@ on:
 
 jobs:
   selenium-tests:
+    name: Run on ${{ matrix.browser }} node
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -54,13 +55,20 @@ jobs:
       - name: 🧪 Run Selenium TestNG Tests with Maven
         run: mvn clean test
 
-      - name: 🚀 Deploy HTML report to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./publish
-          keep_files: true    # So both chrome and firefox reports accumulate
-          destination_dir: .  # Keep all browser folders at root
+      - name: 📁 Prepare HTML reports for GitHub Pages
+        run: |
+            mkdir -p publish/${{ matrix.browser }}
+            cp target/surefire-reports/*.html publish/${{ matrix.browser }}/
+
+            - name: 🚀 Deploy HTML report to GitHub Pages (only once)
+              if: matrix.browser == 'chrome'
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                github_token: ${{ secrets.GITHUB_TOKEN }}
+                publish_dir: ./publish
+                keep_files: true
+                destination_dir: .
+
 
       - name: 🧹 Tear down Selenium Grid
         run: docker compose down
