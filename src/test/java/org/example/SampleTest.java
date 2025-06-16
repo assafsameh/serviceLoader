@@ -10,7 +10,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import java.net.URL;
+import java.net.URI;
 
 public class SampleTest {
 
@@ -21,10 +21,12 @@ public class SampleTest {
         try {
             switch (System.getenv("test_browser").toLowerCase()) {
                 case "firefox":
-                    driver = new RemoteWebDriver(new URL("http://localhost:4444"), new FirefoxOptions());
+                    driver = new RemoteWebDriver(URI.create("http://localhost:4444/wd/hub").toURL(), new FirefoxOptions());
+                    /*driver = new RemoteWebDriver(new URL("http://localhost:4444"), new FirefoxOptions());*/
                     break;
                 case "chrome":
-                    driver = new RemoteWebDriver(new URL("http://localhost:4444"), new ChromeOptions());
+                    driver = new RemoteWebDriver(URI.create("http://localhost:4444/wd/hub").toURL(), new ChromeOptions());
+                    /*driver = new RemoteWebDriver(new URL("http://localhost:4444"), new ChromeOptions());*/
                     break;
                 default:
                     System.out.println("No browser defined!");
