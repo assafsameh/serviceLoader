@@ -72,8 +72,8 @@ public class SampleTest {
         System.out.println("4. Verify login has been successfully executed");
         System.out.println(" 4.1 Page title is 'Swag Labs'");
 
-        /*Assert.assertEquals(driver.getTitle(), "Swag Labs");*/
-        Assert.assertEquals(driver.getTitle(), "Wrong Labs");
+        Assert.assertEquals(driver.getTitle(), "Swag Labs");
+        /*Assert.assertEquals(driver.getTitle(), "Wrong Labs");*/
 
         System.out.println(" 4.2 Page url contains 'inventory'");
         Assert.assertEquals(driver.getCurrentUrl().contains("inventory"), true);

@@ -10,6 +10,12 @@ on:
 jobs:
   selenium-tests:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: [chrome, firefox]
+
+    env:
+      test_browser: ${{ matrix.browser }}
 
     steps:
       - name: 📥 Checkout source code
@@ -26,8 +32,13 @@ jobs:
           docker --version
           docker compose version
 
-      - name: 🧱 Build and start Selenium Grid (Hub + Chrome Node)
-        run: docker compose up -d hub chrome
+      - name: 🧱 Start Selenium Grid
+        run: |
+            if [ "${{ matrix.browser }}" = "chrome" ]; then
+              docker compose up -d hub chrome
+            elif [ "${{ matrix.browser }}" = "firefox" ]; then
+              docker compose up -d hub firefox
+            fi
 
       - name: ⏱️ Wait for Selenium Hub to be ready
         run: |
@@ -42,13 +53,11 @@ jobs:
 
       - name: 🧪 Run Selenium TestNG Tests with Maven
         run: mvn clean test
-        env:
-          test_browser: chrome
 
       - name: 📤 Upload Surefire Reports
         uses: actions/upload-artifact@v4
         with:
-          name: surefire-reports
+          name: surefire-reports-${{ matrix.browser }}
           path: target/surefire-reports/
 
       - name: 🧹 Tear down Selenium Grid
