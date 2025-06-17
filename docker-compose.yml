@@ -37,13 +37,13 @@ services:
       - ./allure-results:/app/allure-results
       - ./allure-report:/app/allure-report
 
-    allure-ui:
-      image: fescobar/allure-docker-ui
-      container_name: allure-ui
-      ports:
-        - "5252:5252"
-      environment:
-        ALLURE_DOCKER_PUBLIC_API_URL: http://localhost:5050
+  allure-ui:
+    image: fescobar/allure-docker-ui
+    container_name: allure-ui
+    ports:
+      - "5252:5252"
+    environment:
+    ALLURE_DOCKER_PUBLIC_API_URL: http://localhost:5050
 
 #  tests:
 #    build: .
