@@ -69,6 +69,14 @@ jobs:
 #                keep_files: true
 #                destination_dir: .
 #
+      - name: 📤 Upload Allure Results to Allure Server
+        run: |
+            zip -r results.zip target/allure-results
+            curl -X POST http://localhost:5050/send-results \
+              -F "results=@results.zip" \
+              -F "project_id=selenium-grid" \
+              -F "execution_name=${{ matrix.browser }}-${{ matrix.group }}"
+
 
       - name: 🧹 Tear down Selenium Grid
         run: docker compose down
