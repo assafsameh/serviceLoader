@@ -55,6 +55,11 @@ jobs:
       - name: 🧪 Run Selenium TestNG Tests with Maven
         run: mvn clean test
 
+      - name: 🕵️ Debug Allure Results Folder
+        run: |
+          echo "Checking contents of target/allure-results:"
+          ls -l target/allure-results || echo "Folder not found"
+
       - name: 📤 Upload Allure Results to Allure Server
         run: |
           if [ -d target/allure-results ] && [ "$(ls -A target/allure-results)" ]; then
