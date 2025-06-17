@@ -66,7 +66,7 @@ jobs:
           echo "📦 Zipping Allure results..."
           zip -r results.zip allure-results
           echo "🚀 Uploading to Allure Server..."
-          curl -X POST http://localhost:5050/send-results \
+          curl -X POST http://allure-server:5050/send-results \
             -F "results=@results.zip" \
             -F "project_id=selenium-grid" \
             -F "execution_name=${{ matrix.browser }}-${{ matrix.group }}"
