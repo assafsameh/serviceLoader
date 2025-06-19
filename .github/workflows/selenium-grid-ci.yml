@@ -99,8 +99,11 @@ jobs:
             cp -r "$dir"/* merged-results/
           done
           echo "✅ Merged files:"
-          ls -l merged-results
           ls -l merged-results/*result.json
+          for f in merged-results/*-result.json; do
+          echo "📄 File: $f"
+          jq '.name, .status' "$f"
+          done
 
       - name: 🛠️ Install Allure CLI
         run: |
