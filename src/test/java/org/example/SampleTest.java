@@ -46,8 +46,11 @@ public class SampleTest {
 
     @Epic("First Epic")
     @Feature("First Feature")
+    @Story("First story")
+    @Description("First Description")
     @Severity(SeverityLevel.CRITICAL)
-    @Test(description = "Verify login with valid credentials", groups = "smoke")
+    @Step("The is step for allure report")
+    @Test(groups = "smoke")
     public void sampleTestMethod() {
         System.out.println("*************************** This is a sample test running***********************************************");
 

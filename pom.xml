@@ -51,6 +51,11 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.2.5</version> <!-- دائما يفضل استخدام أحدث إصدار ثابت -->
         <configuration>
+
+          <systemPropertyVariables>
+            <allure.results.directory>allure-results</allure.results.directory>
+          </systemPropertyVariables>
+
           <!-- هنا لا نحتاج إلى testng.xml لأننا نعتمد على SPI -->
           <suiteXmlFiles></suiteXmlFiles>
 
