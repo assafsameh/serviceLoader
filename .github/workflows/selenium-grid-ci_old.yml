@@ -1,4 +1,4 @@
-name: Selenium Grid CI
+name: Selenium Grid CI - Backup
 
 on:
 #  push:

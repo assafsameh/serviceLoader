@@ -49,6 +49,11 @@ jobs:
             sleep 3
           done
 
+      - name: 🧹 Clean old Allure results
+        run: |
+          rm -rf allure-results/*
+          rm -rf allure-results/.* 2>/dev/null || true
+
       - name: 🧪 Run Selenium TestNG Tests with Maven
         run: mvn clean test
 
@@ -64,11 +69,6 @@ jobs:
 
       - name: 🧹 Stop Selenium Grid
         run: docker compose down
-
-      - name: 🧹 Clean old Allure results
-        run: |
-          rm -rf allure-results/*
-          rm -rf allure-results/.* 2>/dev/null || true
 
 
   merge-allure-reports:
