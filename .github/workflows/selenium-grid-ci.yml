@@ -5,7 +5,7 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-  workflow_dispatch:
+  workflow_dispatch:  # 👈 Manual trigger
 
 jobs:
   selenium-tests:
@@ -14,9 +14,11 @@ jobs:
     strategy:
       matrix:
         browser: [chrome, firefox]
+        group: [smoke, regression]
 
     env:
       test_browser: ${{ matrix.browser }}
+      test_group: ${{ matrix.group }}
 
     steps:
       - name: 📥 Checkout source code
@@ -34,12 +36,7 @@ jobs:
           docker compose version
 
       - name: 🧱 Start Selenium Grid
-        run: |
-            if [ "${{ matrix.browser }}" = "chrome" ]; then
-              docker compose up -d hub chrome
-            elif [ "${{ matrix.browser }}" = "firefox" ]; then
-              docker compose up -d hub firefox
-            fi
+        run: docker compose up -d hub ${{ matrix.browser }}
 
       - name: ⏱️ Wait for Selenium Hub to be ready
         run: |
@@ -55,24 +52,46 @@ jobs:
       - name: 🧪 Run Selenium TestNG Tests with Maven
         run: mvn clean test
 
-      - name: 🕵️ Debug Allure Results Folder
-        run: |
-          echo "Checking contents of allure-results:"
-          ls -l allure-results || echo "Folder not found"
+      - name: 📤 Upload Allure Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-${{ matrix.browser }}-${{ matrix.group }}
+          path: allure-results
 
-      - name: 📤 Upload Allure Results to Allure Server
-        run: |
-          if [ -d allure-results ] && [ "$(ls -A allure-results)" ]; then
-          echo "📦 Zipping Allure results..."
-          zip -r results.zip allure-results
-          echo "🚀 Uploading to Allure Server..."
-          curl -X POST http://allure-server:5050/send-results \
-            -F "results=@results.zip" \
-            -F "project_id=selenium-grid" \
-            -F "execution_name=${{ matrix.browser }}-${{ matrix.group }}"
-          else
-          echo "⚠️ No Allure results found, skipping upload."
-          fi
-
-      - name: 🧹 Tear down Selenium Grid
+      - name: 🧹 Stop Selenium Grid
         run: docker compose down
+
+  merge-allure-reports:
+    name: 📊 Merge Allure Reports
+    runs-on: ubuntu-latest
+    needs: selenium-tests
+
+    steps:
+      - name: 📥 Checkout source code
+        uses: actions/checkout@v4
+
+      - name: ⬇️ Download All Allure Results
+        uses: actions/download-artifact@v4
+        with:
+          path: downloaded-results
+
+      - name: 🧱 Merge Allure Results
+        run: |
+          mkdir -p merged-results
+          find downloaded-results -type d -name "allure-results*" -exec cp -r {}/* merged-results/ \;
+
+      - name: 🛠️ Install Allure CLI
+        run: |
+          curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
+          tar -xvzf allure.tgz
+          sudo mv allure-2.27.0/bin/allure /usr/local/bin/
+
+      - name: 🧪 Generate Allure Report
+        run: |
+          allure generate merged-results -o final-report --clean
+          
+      - name: 📦 Upload Merged Allure Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: merged-allure-report
+          path: final-report
