@@ -85,10 +85,20 @@ jobs:
         with:
           path: downloaded-results
 
-      - name: 🧱 Merge Allure Results
+#      - name: 🧱 Merge Allure Results
+#        run: |
+#          mkdir -p merged-results
+#          find downloaded-results -type d -name "allure-results*" -exec cp -r {}/* merged-results/ \;
+#          ls -l merged-results
+
+      - name: 🧪 Merge All Allure Results (Dynamic)
         run: |
           mkdir -p merged-results
-          find downloaded-results -type d -name "allure-results*" -exec cp -r {}/* merged-results/ \;
+          for dir in downloaded-results/allure-results-*; do
+            echo "Merging results from: $dir"
+            cp -r "$dir"/* merged-results/
+          done
+          echo "✅ Merged files:"
           ls -l merged-results
 
       - name: 🛠️ Install Allure CLI
