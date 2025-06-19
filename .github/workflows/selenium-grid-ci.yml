@@ -89,6 +89,7 @@ jobs:
         run: |
           mkdir -p merged-results
           find downloaded-results -type d -name "allure-results*" -exec cp -r {}/* merged-results/ \;
+          ls -l merged-results
 
       - name: 🛠️ Install Allure CLI
         run: |
