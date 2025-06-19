@@ -9,7 +9,7 @@ on:
 
 jobs:
   selenium-tests:
-    name: Run on ${{ matrix.browser }} node
+    name: Run on ${{ matrix.browser }} node for group ${{ matrix.group }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -85,6 +85,7 @@ jobs:
           curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/download/2.34.0/allure-2.34.0.tgz
           tar -xvzf allure.tgz
           sudo mv allure-2.34.0/bin/allure /usr/local/bin/
+          allure --version
 
       - name: 🧪 Generate Allure Report
         run: |
