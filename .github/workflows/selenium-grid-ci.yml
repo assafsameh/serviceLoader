@@ -9,7 +9,7 @@ on:
 
 jobs:
   selenium-tests:
-    name: Run on ${{ matrix.browser }} node for group ${{ matrix.group }}
+    name: Run on ${{ matrix.browser }} node for ${{ matrix.group }} group
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -52,6 +52,10 @@ jobs:
       - name: 🧪 Run Selenium TestNG Tests with Maven
         run: mvn clean test
 
+      - name: 📂 Check Allure Results Directory
+        run: |
+          ls -l allure-results || echo "❌ allure-results folder missing!"
+
       - name: 📤 Upload Allure Results
         uses: actions/upload-artifact@v4
         with:
@@ -60,6 +64,12 @@ jobs:
 
       - name: 🧹 Stop Selenium Grid
         run: docker compose down
+
+      - name: 🧹 Clean old Allure results
+        run: |
+          rm -rf allure-results/*
+          rm -rf allure-results/.* 2>/dev/null || true
+
 
   merge-allure-reports:
     name: 📊 Merge Allure Reports
@@ -82,9 +92,10 @@ jobs:
 
       - name: 🛠️ Install Allure CLI
         run: |
-          curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/download/2.34.0/allure-2.34.0.tgz
+          curl -L -o allure.tgz https://github.com/allure-framework/allure2/releases/download/2.34.0/allure-2.34.0.tgz
           tar -xvzf allure.tgz
-          sudo mv allure-2.34.0/bin/allure /usr/local/bin/
+          sudo mv allure-2.34.0 /opt/allure
+          sudo ln -s /opt/allure/bin/allure /usr/local/bin/allure
           allure --version
 
       - name: 🧪 Generate Allure Report
