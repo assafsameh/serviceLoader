@@ -49,10 +49,14 @@ jobs:
             sleep 3
           done
 
-      - name: 🧹 Clean old Allure results
+      - name: 🧹 Clean previous Allure results and reports
         run: |
-          rm -rf allure-results/*
-          rm -rf allure-results/.* 2>/dev/null || true
+          echo "Deleting old allure-results and merged-allure-report folders (if they exist)..."
+          rm -rf allure-results 2>/dev/null || true
+          rm -rf merged-results 2>/dev/null || true
+          rm -rf merged-allure-report 2>/dev/null || true
+          rm -rf final-report 2>/dev/null || true
+          
 
       - name: 🧪 Run Selenium TestNG Tests with Maven
         run: mvn clean test
