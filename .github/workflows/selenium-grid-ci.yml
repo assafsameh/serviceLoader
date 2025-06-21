@@ -110,8 +110,14 @@ jobs:
         run: |
           allure generate merged-results -o merged-allure-report --clean      
 
+      - name: Debug Allure Report Folder
+        run: |
+          echo "📂 Listing contents of merged-allure-report:"
+          ls -R merged-allure-report || echo "❌ merged-allure-report does not exist or is empty"
+
       - name: Upload Final Merged Report
         uses: actions/upload-artifact@v4
         with:
           name: merged-allure-report
-          path: final-report
+          path: merged-allure-report
+          if-no-files-found: warn
