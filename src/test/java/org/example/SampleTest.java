@@ -66,14 +66,14 @@ public class SampleTest {
 
         System.out.println("2. Insert username and password");
 
-        Allure.step("2.1 Insert username");
-        System.out.println(" 2.1 Insert username");
+        Allure.step("2.1 Insert username >> standard_user");
+        System.out.println(" 2.1 Insert username >> standard_user");
         driver.findElement(By.id("login_credentials")).click();
         driver.findElement(By.cssSelector("*[data-test=\"username\"]")).click();
         driver.findElement(By.cssSelector("*[data-test=\"username\"]")).sendKeys("standard_user");
 
-        Allure.step("2.1 Insert password");
-        System.out.println(" 2.1 Insert password");
+        Allure.step("2.1 Insert password >> secret_sauce");
+        System.out.println(" 2.1 Insert password >> secret_sauce");
         driver.findElement(By.cssSelector(".login_password")).click();
         driver.findElement(By.cssSelector("*[data-test=\"password\"]")).click();
         driver.findElement(By.cssSelector("*[data-test=\"password\"]")).sendKeys("secret_sauce");
