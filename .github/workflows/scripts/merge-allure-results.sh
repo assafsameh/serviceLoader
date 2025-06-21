@@ -3,7 +3,7 @@ set -euo pipefail
 
 MERGE_DIR="merged-results"
 SOURCE_DIR="downloaded-results"
-SEARCH_WORD="Test"
+SEARCH_WORD="First"
 
 echo "📁 Creating merge folder: $MERGE_DIR"
 mkdir -p "$MERGE_DIR"

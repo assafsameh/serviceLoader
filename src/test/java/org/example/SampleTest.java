@@ -51,7 +51,7 @@ public class SampleTest {
     @Story("First story")
     @Description("First Description")
     @Severity(SeverityLevel.CRITICAL)
-    @Step("The is step for allure report")
+    @Step("The is First step for allure report")
     @Test(groups = "smoke")
     public void sampleTestMethod() {
         System.out.println("*************************** This is a sample test running***********************************************");
