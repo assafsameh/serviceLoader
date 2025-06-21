@@ -60,7 +60,7 @@ public class SampleTest {
 
         System.out.println("1. Open target page");
 
-        Allure.step("Navigaetion Step");
+        Allure.step("Navigation Step");
         driver.get("https://www.saucedemo.com/");
         driver.manage().window().setSize(new Dimension(1350, 637));
 
