@@ -3,7 +3,9 @@ package org.example;
 import io.qameta.allure.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
@@ -22,12 +24,12 @@ public class SampleTest {
         try {
             switch (System.getenv("test_browser").toLowerCase()) {
                 case "firefox":
+                    /*driver = new FirefoxDriver();*/
                     driver = new RemoteWebDriver(URI.create("http://localhost:4444/wd/hub").toURL(), new FirefoxOptions());
-                    /*driver = new RemoteWebDriver(new URL("http://localhost:4444"), new FirefoxOptions());*/
                     break;
                 case "chrome":
+                    /*driver = new ChromeDriver();*/
                     driver = new RemoteWebDriver(URI.create("http://localhost:4444/wd/hub").toURL(), new ChromeOptions());
-                    /*driver = new RemoteWebDriver(new URL("http://localhost:4444"), new ChromeOptions());*/
                     break;
                 default:
                     System.out.println("No browser defined!");

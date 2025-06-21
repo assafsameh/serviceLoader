@@ -84,6 +84,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: downloaded-results
+          merge-multiple: false
 
       - name: 🧪 Verify downloaded folders
         run: ls -R downloaded-results
@@ -94,22 +95,10 @@ jobs:
 #          find downloaded-results -type d -name "allure-results*" -exec cp -r {}/* merged-results/ \;
 #          ls -l merged-results
 
-      - name: 📦 Merge All Results into One Folder
-        run: |
-            mkdir -p merged-results
-            for dir in downloaded-results/allure-results-*; do
-              echo "Merging from: $dir"
-              cp -r "$dir"/* merged-results/ || echo "No files in $dir"
-            done
+      - name: Merge Allure Results
+        run: bash .github/workflows/scripts/merge-allure-results.sh
 
-      - name: 🔍 Validate Merged JSON Files (names + status)
-        run: |
-          for f in merged-results/*-result.json; do
-            echo "📄 File: $f"
-            jq '.name, .status' "$f"
-          done
-
-      - name: 🛠️ Install Allure CLI
+      - name: Install Allure CLI
         run: |
           curl -L -o allure.tgz https://github.com/allure-framework/allure2/releases/download/2.34.0/allure-2.34.0.tgz
           tar -xvzf allure.tgz
@@ -117,15 +106,12 @@ jobs:
           sudo ln -s /opt/allure/bin/allure /usr/local/bin/allure
           allure --version
 
-      
-
-      - name: 🧪 Generate Allure Report
+      - name: Generate Allure Report
         run: |
           allure generate merged-results -o final-report --clean
           
-      - name: 📦 Upload Merged Allure Report
+      - name: Upload Final Merged Report
         uses: actions/upload-artifact@v4
         with:
           name: merged-allure-report
           path: final-report
-          if-no-files-found: error
