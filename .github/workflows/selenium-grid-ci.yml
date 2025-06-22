@@ -70,6 +70,7 @@ jobs:
         with:
           name: allure-results-${{ matrix.browser }}-${{ matrix.group }}
           path: allure-results
+          retention-days: 2   # ⬅️ keep artifact for 2 days only
 
       - name: 🧹 Stop Selenium Grid
         run: docker compose down
@@ -88,6 +89,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: downloaded-results
+          retention-days: 2   # ⬅️ keep artifact for 2 days only
           merge-multiple: false
 
       - name: 🧪 Verify downloaded folders
@@ -124,4 +126,5 @@ jobs:
         with:
           name: merged-allure-report
           path: merged-allure-report
+          retention-days: 2   # ⬅️ keep artifact for 2 days only
           if-no-files-found: warn

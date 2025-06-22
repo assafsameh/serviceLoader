@@ -25,25 +25,25 @@ services:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
 
-  allure-server:
-    image: fescobar/allure-docker-service
-    container_name: allure-server
-    ports:
-      - "5050:5050"
-    environment:
-      CHECK_RESULTS_EVERY_SECONDS: 5
-      KEEP_HISTORY: 1
-    volumes:
-      - ./allure-results:/app/allure-results
-      - ./allure-report:/app/allure-report
+#  allure-server:
+#    image: fescobar/allure-docker-service
+#    container_name: allure-server
+#    ports:
+#      - "5050:5050"
+#    environment:
+#      CHECK_RESULTS_EVERY_SECONDS: 5
+#      KEEP_HISTORY: 1
+#    volumes:
+#      - ./allure-results:/app/allure-results
+#      - ./allure-report:/app/allure-report
 
-  allure-ui:
-    image: fescobar/allure-docker-ui
-    container_name: allure-ui
-    ports:
-      - "5252:5252"
-    environment:
-      - ALLURE_DOCKER_PUBLIC_API_URL=http://localhost:5050
+#  allure-ui:
+#    image: fescobar/allure-docker-ui
+#    container_name: allure-ui
+#    ports:
+#      - "5252:5252"
+#    environment:
+#      - ALLURE_DOCKER_PUBLIC_API_URL=http://localhost:5050
 
 #  tests:
 #    build: .
