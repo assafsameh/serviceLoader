@@ -30,6 +30,16 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
+      - name: 🧹 Clean previous Allure results and reports
+        run: |
+          echo "Deleting old allure-results and merged-allure-report folders (if they exist)..."
+          rm -rf allure-results 2>/dev/null || true
+          rm -rf merged-results 2>/dev/null || true
+          rm -rf allure-results/* || true
+          rm -rf allure-results/.* 2>/dev/null || true
+          rm -rf merged-allure-report 2>/dev/null || true
+          rm -rf final-report 2>/dev/null || true
+
       - name: 🐳 Confirm Docker & Docker Compose versions
         run: |
           docker --version
@@ -47,16 +57,7 @@ jobs:
               break
             fi
             sleep 3
-          done
-
-      - name: 🧹 Clean previous Allure results and reports
-        run: |
-          echo "Deleting old allure-results and merged-allure-report folders (if they exist)..."
-          rm -rf allure-results 2>/dev/null || true
-          rm -rf merged-results 2>/dev/null || true
-          rm -rf merged-allure-report 2>/dev/null || true
-          rm -rf final-report 2>/dev/null || true
-          
+          done   
 
       - name: 🧪 Run Selenium TestNG Tests with Maven
         run: mvn clean test
