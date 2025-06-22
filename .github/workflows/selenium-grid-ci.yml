@@ -69,9 +69,9 @@ jobs:
       - name: 📤 Upload Allure Results
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-${{ matrix.browser }}-${{ matrix.group }}
+          name: allure-results-${{ github.run_id }}-${{ matrix.browser }}-${{ matrix.group }}
           path: allure-results
-          retention-days: 2   # ⬅️ keep artifact for 2 days only
+          retention-days: 1   # ⬅️ keep artifact for 1 day only
 
       - name: 🧹 Stop Selenium Grid
         run: docker compose down
@@ -113,6 +113,17 @@ jobs:
           sudo ln -s /opt/allure/bin/allure /usr/local/bin/allure
           allure --version
 
+#        ✅ What it does:
+#        Installs the third-party allure-commandline Node.js wrapper package.
+#        Under the hood, it downloads the Allure binary too, but wraps it in an NPM-based interface.
+#        ⚠️ Key differences:
+#        Managed via NPM, not an official package from the Allure team.
+#        Version may lag behind or vary depending on NPM's publishing schedule.
+#        Package size is smaller and easier to use, but you get less control over versioning.
+#      - name: Install Allure CLI
+#        run: |
+#          npm install -g allure-commandline
+
       - name: Generate Allure Report
         run: |
           allure generate merged-results -o merged-allure-report --clean      
@@ -125,7 +136,7 @@ jobs:
       - name: Upload Final Merged Report
         uses: actions/upload-artifact@v4
         with:
-          name: merged-allure-report
+          name: merged-allure-report-${{ github.run_id }}
           path: merged-allure-report
-          retention-days: 2   # ⬅️ keep artifact for 2 days only
+          retention-days: 1   # ⬅️ keep artifact for 1 day only
           if-no-files-found: warn

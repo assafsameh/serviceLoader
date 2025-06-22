@@ -12,10 +12,22 @@ MERGE_DIR="merged-results"
 SOURCE_DIR="downloaded-results"
 #SEARCH_WORD="First"
 
+
+#----------------------------------------------------------------------------------------------------------------------------------------------
+# Check if Allure CLI is installed
+if ! command -v allure &> /dev/null; then
+  echo "⚠️ Allure CLI not found. Installing globally using npm..."
+  npm install -g allure-commandline
+else
+  echo "✅ Allure CLI is already installed: $(allure --version)"
+fi
+
+
 #----------------------------------------------------------------------------------------------------------------------------------------------
 #🔹 -p avoids errors if it already exists.
 echo "📁 Creating merge folder: $MERGE_DIR"
 mkdir -p "$MERGE_DIR"
+
 
 #----------------------------------------------------------------------------------------------------------------------------------------------
 #🔹 find all .json files and search for the keyword.
@@ -88,3 +100,5 @@ echo "✅ Merge complete."
 #🔹 2>/dev/null: Silently handles cases when no matching files exist.
 echo "📦 Total result files: $(ls "$MERGE_DIR"/*-result.json 2>/dev/null | wc -l)"
 echo "📦 Total container files: $(ls "$MERGE_DIR"/*-container.json 2>/dev/null | wc -l)"
+
+#----------------------------------------------------------------------------------------------------------------------------------------------
