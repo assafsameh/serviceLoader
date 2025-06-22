@@ -14,10 +14,11 @@ SOURCE_DIR="downloaded-results"
 
 
 #----------------------------------------------------------------------------------------------------------------------------------------------
-# Check if Allure CLI is installed
+# Check if Allure CLI is installed, if not install it
 if ! command -v allure &> /dev/null; then
   echo "⚠️ Allure CLI not found. Installing globally using npm..."
   npm install -g allure-commandline
+  echo "✅ Installing globally using npm is done, the allure version is: $(allure --version)"
 else
   echo "✅ Allure CLI is already installed: $(allure --version)"
 fi

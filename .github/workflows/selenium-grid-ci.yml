@@ -105,13 +105,17 @@ jobs:
       - name: Merge Allure Results
         run: bash .github/workflows/scripts/merge-allure-results.sh
 
-      - name: Install Allure CLI
+      - name: Install Allure CLI if not exists
         run: |
-          curl -L -o allure.tgz https://github.com/allure-framework/allure2/releases/download/2.34.0/allure-2.34.0.tgz
-          tar -xvzf allure.tgz
-          sudo mv allure-2.34.0 /opt/allure
-          sudo ln -s /opt/allure/bin/allure /usr/local/bin/allure
-          allure --version
+          if ! command -v allure &> /dev/null; then
+            echo "Allure not found. Installing..."
+            curl -L -o allure.tgz https://github.com/allure-framework/allure2/releases/download/2.34.0/allure-2.34.0.tgz
+            tar -xvzf allure.tgz
+            sudo mv -f allure-2.34.0 /opt/allure
+            sudo ln -sf /opt/allure/bin/allure /usr/local/bin/allure
+          else
+            echo "✅ Allure already installed: $(allure --version)"
+          fi
 
 #        ✅ What it does:
 #        Installs the third-party allure-commandline Node.js wrapper package.
