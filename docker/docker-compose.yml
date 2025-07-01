@@ -13,7 +13,7 @@ services:
       - GRID_BROWSER_TIMEOUT=300
       - GRID_TIMEOUT=300
 
-  chrome-node:
+  chrome:
     image: selenium/node-chrome:4.21.0
     depends_on:
       - selenium-hub
@@ -23,7 +23,7 @@ services:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
 
-  firefox-node:
+  firefox:
     image: selenium/node-firefox:4.21.0
     depends_on:
       - selenium-hub

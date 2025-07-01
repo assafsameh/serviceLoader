@@ -60,15 +60,9 @@ jobs:
 
       - name: 🧪 Run Selenium TestNG Tests with Maven
         run:  |
-          echo "Running tests for browser: ${{ env.test_browser }}"
-          if [[ "${{ env.test_browser }}" == "chrome-node" ]]; then
-          mvn clean test -Dbrowser=chrome -Dgroups=${{ matrix.group }}
-          elif [[ "${{ env.test_browser }}" == "firefox-node" ]]; then
-          mvn clean test -Dbrowser=firefox -Dgroups=${{ matrix.group }}
-          else
-          echo "❌ Unsupported browser: ${{ env.test_browser }}"
-          exit 1
-          fi
+          echo "Running tests for browser: ${{ matrix.test_browser }} for group {{ matrix.group }}"
+          mvn clean test -Dbrowser=${{ matrix.test_browser }} -Dgroups=${{ matrix.group }}
+
       - name: 📂 Check Allure Results Directory
         run: |
           ls -l allure-results || echo "❌ allure-results folder missing!"
