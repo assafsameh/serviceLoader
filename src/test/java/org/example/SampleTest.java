@@ -3,7 +3,7 @@ package org.example;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.net.URI;
@@ -14,7 +14,7 @@ public class SampleTest {
     private RemoteWebDriver driver;
 
 
-    @BeforeTest
+    @BeforeMethod
     public void runBeforeTestMethod() {
         System.out.println("*************************** Run Before Test Method ***********************************************");
         try {
