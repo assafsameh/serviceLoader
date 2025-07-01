@@ -1,0 +1,26 @@
+# Maven build artifacts
+target/
+
+# IntelliJ and Eclipse project files (optional)
+*.iml
+.idea/
+.project
+.classpath
+.settings/
+
+# Logs
+*.log
+
+# OS & editor-specific files
+.DS_Store
+Thumbs.db
+
+# Allure-generated runtime files
+allure-results/
+merged-allure-report/
+allure-report/
+allure.tgz
+
+# Git & CI/CD
+.git/
+.github/

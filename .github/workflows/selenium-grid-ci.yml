@@ -96,11 +96,11 @@ jobs:
       - name: 🧪 Verify downloaded folders
         run: ls -R downloaded-results
 
-#      - name: 🧱 Merge Allure Results
-#        run: |
-#          mkdir -p merged-results
-#          find downloaded-results -type d -name "allure-results*" -exec cp -r {}/* merged-results/ \;
-#          ls -l merged-results
+      #      - name: 🧱 Merge Allure Results
+      #        run: |
+      #          mkdir -p merged-results
+      #          find downloaded-results -type d -name "allure-results*" -exec cp -r {}/* merged-results/ \;
+      #          ls -l merged-results
 
       - name: Merge Allure Results
         run: bash .github/workflows/scripts/merge-allure-results.sh
@@ -117,16 +117,16 @@ jobs:
             echo "✅ Allure already installed: $(allure --version)"
           fi
 
-#        ✅ What it does:
-#        Installs the third-party allure-commandline Node.js wrapper package.
-#        Under the hood, it downloads the Allure binary too, but wraps it in an NPM-based interface.
-#        ⚠️ Key differences:
-#        Managed via NPM, not an official package from the Allure team.
-#        Version may lag behind or vary depending on NPM's publishing schedule.
-#        Package size is smaller and easier to use, but you get less control over versioning.
-#      - name: Install Allure CLI
-#        run: |
-#          npm install -g allure-commandline
+      #        ✅ What it does:
+      #        Installs the third-party allure-commandline Node.js wrapper package.
+      #        Under the hood, it downloads the Allure binary too, but wraps it in an NPM-based interface.
+      #        ⚠️ Key differences:
+      #        Managed via NPM, not an official package from the Allure team.
+      #        Version may lag behind or vary depending on NPM's publishing schedule.
+      #        Package size is smaller and easier to use, but you get less control over versioning.
+      #      - name: Install Allure CLI
+      #        run: |
+      #          npm install -g allure-commandline
 
       - name: Generate Allure Report
         run: |

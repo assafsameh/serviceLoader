@@ -2,24 +2,32 @@ version: '3.9'
 
 services:
 
-  hub:
+  selenium-hub:
     image: selenium/hub:4.21.0
     ports:
-      - "4444:4444"
+      - "4442:4442"  # For router to session queue/distributor
+      - "4443:4443"  # For router to node communication
+      - "4444:4444"  # WebDriver client entry point
+    environment:
+      - GRID_MAX_SESSION=16
+      - GRID_BROWSER_TIMEOUT=300
+      - GRID_TIMEOUT=300
 
-  chrome:
+  chrome-node:
     image: selenium/node-chrome:4.21.0
     depends_on:
-      - hub
+      - selenium-hub
+    shm_size: 2gb
     environment:
-      - SE_EVENT_BUS_HOST=hub
+      - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
 
-  firefox:
+  firefox-node:
     image: selenium/node-firefox:4.21.0
     depends_on:
-      - hub
+      - selenium-hub
+    shm_size: 2gb
     environment:
       - SE_EVENT_BUS_HOST=hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
@@ -45,12 +53,15 @@ services:
 #    environment:
 #      - ALLURE_DOCKER_PUBLIC_API_URL=http://localhost:5050
 
-#  tests:
+#  selenium-tests:
 #    build: .
 #    depends_on:
-#      - hub
-#      - chrome
+#      - selenium-hub
+#      - chrome-node
+#      - firefox-node
+#    volumes:
+#      - ./allure-results:/app/allure-results
 #    environment:
-#      - HUB_HOST=hub
+#      - HUB_HOST=selenium-hub
 #    entrypoint: ["mvn"]
 #    command: ["clean", "test"]
