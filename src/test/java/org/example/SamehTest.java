@@ -3,6 +3,7 @@ package org.example;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -37,5 +38,11 @@ public class SamehTest {
     @Test
     public void testMethod_Sameh(){
         System.out.println("Test Method Sameh");
+    }
+
+    @AfterMethod
+    public void runAfterTestMethod(){
+        driver.quit();
+        System.out.println("*************************** Run After Test Method ***********************************************");
     }
 }
