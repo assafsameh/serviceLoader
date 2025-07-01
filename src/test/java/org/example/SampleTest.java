@@ -10,9 +10,7 @@ import java.net.URI;
 
 public class SampleTest {
 
-
     private RemoteWebDriver driver;
-
 
     @BeforeMethod
     public void runBeforeTestMethod() {
@@ -37,7 +35,7 @@ public class SampleTest {
         }
     }
 
-    @Test(groups = {"regression"})
+    @Test(groups = {"regression", "smoke"})
     public void myTest() {
         System.out.println("Running test...");
     }
