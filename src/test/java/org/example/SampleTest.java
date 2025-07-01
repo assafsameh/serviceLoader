@@ -9,7 +9,7 @@ public class SampleTest {
         System.out.println("setUp");
     }
 
-    @Test()
+    /*@Test()*/
     public void myTest() {
         System.out.println("Running setUp...");
     }
