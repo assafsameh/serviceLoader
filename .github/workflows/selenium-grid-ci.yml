@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        browser: [chrome, firefox]
+        browser: [chrome-node, firefox-node]
         group: [smoke, regression]
     env:
       test_browser: ${{ matrix.browser }}
