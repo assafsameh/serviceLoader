@@ -59,7 +59,7 @@ jobs:
           done   
 
       - name: 🧪 Run Selenium TestNG Tests with Maven
-        run:     |
+        run:  |
           echo "Running tests for browser: ${{ env.test_browser }}"
           if [[ "${{ env.test_browser }}" == "chrome-node" ]]; then
           mvn clean test -Dbrowser=chrome -Dgroups=${{ matrix.group }}

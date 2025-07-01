@@ -22,6 +22,8 @@ public class SampleTest {
     @BeforeTest
     public void runBeforeTestMethod() {
         try {
+            System.out.println("Browser Name is: ");
+            System.out.println(System.getenv("test_browser").toLowerCase());
             switch (System.getenv("test_browser").toLowerCase()) {
                 case "firefox":
                     /*driver = new FirefoxDriver();*/
