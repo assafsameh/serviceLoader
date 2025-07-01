@@ -21,6 +21,7 @@ public class SampleTest {
 
     @BeforeTest
     public void runBeforeTestMethod() {
+        System.out.println("*************************** Run Before Test Method ***********************************************");
         try {
             System.out.println("Browser Name is: ");
             System.out.println(System.getenv("test_browser").toLowerCase());
