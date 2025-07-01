@@ -1,4 +1,4 @@
-name: Selenium Grid CI
+name: ✨ Selenium Grid CI
 
 on:
   push:
@@ -15,7 +15,6 @@ jobs:
       matrix:
         browser: [chrome, firefox]
         group: [smoke, regression]
-
     env:
       test_browser: ${{ matrix.browser }}
       test_group: ${{ matrix.group }}
@@ -46,7 +45,7 @@ jobs:
           docker compose version
 
       - name: 🧱 Start Selenium Grid
-        run: docker compose up -d hub ${{ matrix.browser }}
+        run: docker compose -f docker/docker-compose.yml up -d hub ${{ matrix.browser }}
 
       - name: ⏱️ Wait for Selenium Hub to be ready
         run: |
@@ -74,7 +73,7 @@ jobs:
           retention-days: 1   # ⬅️ keep artifact for 1 day only
 
       - name: 🧹 Stop Selenium Grid
-        run: docker compose down
+        run: docker compose -f docker/docker-compose.yml down
 
 
   merge-allure-reports:
