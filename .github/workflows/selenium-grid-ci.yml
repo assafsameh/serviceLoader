@@ -60,8 +60,8 @@ jobs:
 
       - name: 🧪 Run Selenium TestNG Tests with Maven
         run:  |
-          echo "Running tests for browser: ${{ matrix.test_browser }} for group {{ matrix.group }}"
-          mvn clean test -Dbrowser=${{ matrix.test_browser }} -Dgroups=${{ matrix.group }}
+          echo "Running tests for browser: ${{ matrix.browser }} for group ${{ matrix.group }}"
+          mvn clean test -Dbrowser=${{ matrix.browser }} -Dgroups=${{ matrix.group }}
 
       - name: 📂 Check Allure Results Directory
         run: |
