@@ -10,7 +10,7 @@ public class sameh {
         System.out.println("setUp");
     }
 
-    @Test(groups = {"regression", "smoke"})
+    @Test
     public void testMethod1(){
         System.out.println("Test Method");
     }
