@@ -45,7 +45,7 @@ jobs:
           docker compose version
 
       - name: 🧱 Start Selenium Grid
-        run: docker compose -f docker/docker-compose.yml up -d hub ${{ matrix.browser }}
+        run: docker compose -f docker/docker-compose.yml up -d selenium-hub ${{ matrix.browser }}
 
       - name: ⏱️ Wait for Selenium Hub to be ready
         run: |
