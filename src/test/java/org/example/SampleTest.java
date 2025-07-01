@@ -11,6 +11,6 @@ public class SampleTest {
 
     @Test()
     public void myTest() {
-        System.out.println("Running test...");
+        System.out.println("Running setUp...");
     }
 }
