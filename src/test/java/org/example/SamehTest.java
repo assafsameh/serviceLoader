@@ -3,7 +3,7 @@ package org.example;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class Sameh {
+public class SamehTest {
 
     @BeforeMethod
     public void setUp_Sameh(){
