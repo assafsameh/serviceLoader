@@ -60,6 +60,9 @@ jobs:
       - name: 🔍 List Compose Services (before waiting)
         run: docker compose -f docker/docker-compose.yml config --services
 
+      - name: 🔍 Check the hub status
+        run: curl -s http://localhost:4444/wd/hub/status
+
       - name: ⏳ Wait for Selenium Hub
         run: |
             echo "Waiting for Selenium Grid to be ready..."
