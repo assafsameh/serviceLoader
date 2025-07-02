@@ -39,7 +39,7 @@ public class SamehTest {
         }
     }
 
-    @Test
+   /* @Test*/
     public void testMethod_Sameh(){
         System.out.println("*************************** This is a sample test running***********************************************");
 

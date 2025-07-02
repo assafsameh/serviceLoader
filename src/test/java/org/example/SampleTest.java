@@ -39,7 +39,7 @@ public class SampleTest {
         }
     }
 
-    @Test
+    @Test(groups = {"smoke", "regression"})
     public void testMethod(){
         System.out.println("*************************** This is a sample test running***********************************************");
 
