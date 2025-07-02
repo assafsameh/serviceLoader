@@ -16,7 +16,7 @@ import java.net.URI;
 public class SamehTest {
     private RemoteWebDriver driver;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUp_Sameh(){
         System.out.println("*************************** Run Before Test Method ***********************************************");
         try {
@@ -89,7 +89,7 @@ public class SamehTest {
         }
         System.out.println("5. End");    }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void runAfterTestMethod(){
         driver.quit();
         System.out.println("*************************** Run After Test Method ***********************************************");
