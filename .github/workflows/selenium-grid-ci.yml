@@ -70,7 +70,7 @@ jobs:
       - name: 📤 Upload Allure Results
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-${{ github.run_id }}-test_browser-$test_group
+          name: allure-results-${{ github.run_id }}-${{ matrix.browser }}-${{ matrix.group }}
           path: allure-results
           retention-days: 1   # ⬅️ keep artifact for 1 day only
 
