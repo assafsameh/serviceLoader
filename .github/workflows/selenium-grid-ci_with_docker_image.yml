@@ -15,7 +15,6 @@ jobs:
       matrix:
         browser: [chrome, firefox]
         group: [smoke, regression]
-
     env:
       test_browser: ${{ matrix.browser }}
       test_group: ${{ matrix.group }}
@@ -50,10 +49,10 @@ jobs:
       - name: 📚 Build Docker Image for Tests
         run: |
           docker build -f docker/Dockerfile -t selenium-tests .
+          echo "${{ matrix.browser }}"
 
-      - name: 🦖 Start Selenium Grid (Docker Compose)
-        run: |
-          docker compose -f docker/docker-compose.yml up -d selenium-hub ${{ matrix.browser }}
+      - name: 🧱 Start Selenium Grid
+        run: docker compose -f docker/docker-compose.yml up -d selenium-hub ${{ matrix.browser }}
 
       - name: 🐳 Show Selenium Grid logs (before waiting)
         run: docker compose -f docker/docker-compose.yml logs --no-color
