@@ -93,14 +93,14 @@ jobs:
 
       - name: 🔍 Print env for debug
         run: |
-          echo "test_browser=test_browser"
-          echo "test_group=test_group"
+          echo "test_browser=$test_browser"
+          echo "test_group=$test_group"
 
       - name: 🔮 Run Tests in Container
         run: |
           docker run --network=host \
-          -e TEST_BROWSER=test_browser \
-          -e TEST_GROUP=test_group \
+          -e TEST_BROWSER=$test_browser \
+          -e TEST_GROUP=$test_group \
           -v ${{ github.workspace }}/allure-results:/app/allure-results \
           --name selenium-tests-${{ matrix.browser }}-${{ matrix.group }} \
           selenium-tests
