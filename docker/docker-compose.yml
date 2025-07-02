@@ -4,6 +4,7 @@ services:
 
   selenium-hub:
     image: selenium/hub:4.21.0
+    network_mode: "host"  # 👈 makes localhost:4444 work from the host
     ports:
       - "4442:4442"  # For router to session queue/distributor
       - "4443:4443"  # For router to node communication
