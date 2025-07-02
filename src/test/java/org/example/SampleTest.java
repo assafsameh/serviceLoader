@@ -26,6 +26,7 @@ public class SampleTest {
                     System.out.println(System.getenv("test_browser").toLowerCase());
                     /*driver = new FirefoxDriver();*/
                     driver = new RemoteWebDriver(URI.create("http://localhost:4444/wd/hub").toURL(), new FirefoxOptions());
+                    System.out.println("driver is: ");
                     System.out.println(driver);
                     break;
                 case "chrome":
@@ -33,6 +34,7 @@ public class SampleTest {
                     System.out.println(System.getenv("test_browser").toLowerCase());
                     /*driver = new ChromeDriver();*/
                     driver = new RemoteWebDriver(URI.create("http://localhost:4444/wd/hub").toURL(), new ChromeOptions());
+                    System.out.println("driver is: ");
                     System.out.println(driver);
                     break;
                 default:
