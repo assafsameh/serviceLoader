@@ -9,7 +9,7 @@ on:
 
 jobs:
   selenium-tests:
-    name: Run on ${{ matrix.browser }} node for ${{ matrix.group }} group
+    name: Run on $test_browser node for $test_group group
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -45,7 +45,7 @@ jobs:
           docker compose version
 
       - name: 🧱 Start Selenium Grid
-        run: docker compose -f docker/docker-compose.yml up -d selenium-hub ${{ matrix.browser }}
+        run: docker compose -f docker/docker-compose.yml up -d selenium-hub test_browser
 
       - name: ⏱️ Wait for Selenium Hub to be ready
         run: |
@@ -70,7 +70,7 @@ jobs:
       - name: 📤 Upload Allure Results
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-${{ github.run_id }}-${{ matrix.browser }}-${{ matrix.group }}
+          name: allure-results-${{ github.run_id }}-test_browser-$test_group
           path: allure-results
           retention-days: 1   # ⬅️ keep artifact for 1 day only
 
