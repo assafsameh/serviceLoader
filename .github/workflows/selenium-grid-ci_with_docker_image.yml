@@ -63,8 +63,8 @@ jobs:
       - name: 🌐 Check Selenium Hub Status
         run: |
           echo "Checking Grid status..."
-          curl -v http://localhost:4444/wd/hub/status || (echo "❌ Hub not reachable!" && exit 1)
           docker exec selenium-hub curl -s http://localhost:4444/wd/hub/status
+          curl -v http://localhost:4444/wd/hub/status || (echo "❌ Hub not reachable!" && exit 1)
 
       - name: ⏳ Wait for Selenium Hub
         run: |
