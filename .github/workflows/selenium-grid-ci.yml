@@ -9,7 +9,7 @@ on:
 
 jobs:
   selenium-tests:
-    name: Run on ${{ matrix.browser node for ${{ matrix.group }} group
+    name: Run on ${{ matrix.browser }} node for ${{ matrix.group }} group
     runs-on: ubuntu-latest
     strategy:
       matrix:
