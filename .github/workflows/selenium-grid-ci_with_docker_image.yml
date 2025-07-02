@@ -55,15 +55,18 @@ jobs:
         run: |
           docker compose -f docker/docker-compose.yml up -d selenium-hub ${{ matrix.browser }}
 
+      - name: 🐳 Show Selenium Grid logs (before waiting)
+        run: docker compose -f docker/docker-compose.yml logs --no-color
+
       - name: ⏳ Wait for Selenium Hub
         run: |
             echo "Waiting for Selenium Grid to be ready..."
-            for i in {1..20}; do
+            for i in {1..10}; do
               if curl -s http://localhost:4444/wd/hub/status | grep -q '"ready":true'; then
                 echo "✅ Grid ready."
                 break
               fi
-              sleep 5
+              sleep 3
             done
 
       - name: 🔍 Print env for debug
