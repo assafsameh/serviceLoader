@@ -53,24 +53,24 @@ jobs:
       - name: 🧱 Start Selenium Grid
         run: docker compose -f docker/docker-compose.yml up -d selenium-hub ${{ matrix.browser }}
 
-      - name: 🐳 Show Selenium Grid logs (before waiting)
-        run: docker compose -f docker/docker-compose.yml logs --no-color
-        continue-on-error: true
-
-      - name: 🔍 List Compose Services (before waiting)
-        run: docker compose -f docker/docker-compose.yml config --services
-        continue-on-error: true
-
-      - name: 🐳 Check running containers
-        run: docker ps -a
-        continue-on-error: true
-
-      - name: 🌐 Check Selenium Hub Status
-        run: |
-          echo "Checking Grid status..."
-          docker exec selenium-hub curl -s http://localhost:4444/wd/hub/status
-          curl -v http://localhost:4444/wd/hub/status
-        continue-on-error: true
+#      - name: 🐳 Show Selenium Grid logs (before waiting)
+#        run: docker compose -f docker/docker-compose.yml logs --no-color
+#        continue-on-error: true
+#
+#      - name: 🔍 List Compose Services (before waiting)
+#        run: docker compose -f docker/docker-compose.yml config --services
+#        continue-on-error: true
+#
+#      - name: 🐳 Check running containers
+#        run: docker ps -a
+#        continue-on-error: true
+#
+#      - name: 🌐 Check Selenium Hub Status
+#        run: |
+#          echo "Checking Grid status..."
+#          docker exec selenium-hub curl -s http://localhost:4444/wd/hub/status
+#          curl -v http://localhost:4444/wd/hub/status
+#        continue-on-error: true
 
       - name: ⏳ Wait for Selenium Hub
         run: |
@@ -82,18 +82,17 @@ jobs:
               fi
               sleep 3
             done
-        continue-on-error: true
 
-      - name: 🌐 Check Selenium Hub Status
-        run: |
-          echo "Checking Grid status..."
-          docker exec selenium-hub curl -s http://localhost:4444/wd/hub/status
-          curl -v http://localhost:4444/wd/hub/status
-
-      - name: 🔍 Print env for debug
-        run: |
-          echo "test_browser=$test_browser"
-          echo "test_group=$test_group"
+#      - name: 🌐 Check Selenium Hub Status
+#        run: |
+#          echo "Checking Grid status..."
+#          docker exec selenium-hub curl -s http://localhost:4444/wd/hub/status
+#          curl -v http://localhost:4444/wd/hub/status
+#
+#      - name: 🔍 Print env for debug
+#        run: |
+#          echo "test_browser=$test_browser"
+#          echo "test_group=$test_group"
 
       - name: 🔮 Run Tests in Container
         run: |
@@ -149,11 +148,11 @@ jobs:
           name: merged-allure-report
           path: merged-allure-report
 
-      - name: 📍 Serve Allure Report Locally (Debug Only)
-        if: github.event_name == 'workflow_dispatch'
-        run: |
-          pip install --user httpserver
-          cd merged-allure-report && python3 -m http.server 8888
+#      - name: 📍 Serve Allure Report Locally (Debug Only)
+#        if: github.event_name == 'workflow_dispatch'
+#        run: |
+#          pip install --user httpserver
+#          cd merged-allure-report && python3 -m http.server 8888
 
 #      - name: 📲 Notify Slack (Optional)
 #        if: always()
