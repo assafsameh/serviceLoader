@@ -19,6 +19,9 @@ jobs:
     env:
       test_browser: ${{ matrix.browser }}
       test_group: ${{ matrix.group }}
+      BASE_URL: https://staging.example.com
+      ENVIRONMENT: staging
+
 
     steps:
       - name: 📥 Checkout source code
@@ -50,15 +53,35 @@ jobs:
 
       - name: 🦖 Start Selenium Grid (Docker Compose)
         run: |
-          docker-compose -f docker-compose.yml up -d selenium-hub chrome firefox
+          docker compose -f docker/docker-compose.yml up -d selenium-hub ${{ matrix.browser }}
+
+      - name: ⏳ Wait for Selenium Hub
+        run: |
+            echo "Waiting for Selenium Grid to be ready..."
+            for i in {1..20}; do
+              if curl -s http://localhost:4444/wd/hub/status | grep -q '"ready":true'; then
+                echo "✅ Grid ready."
+                break
+              fi
+              sleep 5
+            done
+
+      - name: 🔍 Print env for debug
+        run: |
+          echo "TEST_BROWSER=$TEST_BROWSER"
+          echo "TEST_GROUP=$TEST_GROUP"
 
       - name: 🔮 Run Tests in Container
         run: |
           docker run --network=host \
-          -e TEST_BROWSER=${TEST_BROWSER} \
-          -e TEST_GROUP=${TEST_GROUP} \
+          -e TEST_BROWSER=$TEST_BROWSER \
+          -e TEST_GROUP=$TEST_GROUP \
           -v ${{ github.workspace }}/allure-results:/app/allure-results \
+          --name selenium-tests-${{ matrix.browser }}-${{ matrix.group }} \
           selenium-tests
+
+      - name: 🐳 Show Running Containers (Debug)
+        run: docker ps -a
 
       - name: 📀 Upload Allure Results
         uses: actions/upload-artifact@v4
