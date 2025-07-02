@@ -20,16 +20,20 @@ public class SampleTest {
     public void setUp(){
         System.out.println("*************************** Run Before Test Method ***********************************************");
         try {
-            System.out.println("Browser Name is: ");
-            System.out.println(System.getenv("test_browser").toLowerCase());
             switch (System.getenv("test_browser").toLowerCase()) {
                 case "firefox":
+                    System.out.println("Browser Name is: ");
+                    System.out.println(System.getenv("test_browser").toLowerCase());
                     /*driver = new FirefoxDriver();*/
                     driver = new RemoteWebDriver(URI.create("http://localhost:4444/wd/hub").toURL(), new FirefoxOptions());
+                    System.out.println(driver);
                     break;
                 case "chrome":
+                    System.out.println("Browser Name is: ");
+                    System.out.println(System.getenv("test_browser").toLowerCase());
                     /*driver = new ChromeDriver();*/
                     driver = new RemoteWebDriver(URI.create("http://localhost:4444/wd/hub").toURL(), new ChromeOptions());
+                    System.out.println(driver);
                     break;
                 default:
                     System.out.println("No browser defined!");
