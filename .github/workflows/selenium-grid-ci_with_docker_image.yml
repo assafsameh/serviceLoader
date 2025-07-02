@@ -57,6 +57,9 @@ jobs:
       - name: 🐳 Show Selenium Grid logs (before waiting)
         run: docker compose -f docker/docker-compose.yml logs --no-color
 
+      - name: 🔍 List Compose Services (before waiting)
+        run: docker compose -f docker/docker-compose.yml config --services
+
       - name: ⏳ Wait for Selenium Hub
         run: |
             echo "Waiting for Selenium Grid to be ready..."
