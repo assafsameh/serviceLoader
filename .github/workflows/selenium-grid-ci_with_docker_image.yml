@@ -49,7 +49,6 @@ jobs:
       - name: 📚 Build Docker Image for Tests
         run: |
           docker build -f docker/Dockerfile -t selenium-tests .
-          echo "${{ matrix.browser }}"
 
       - name: 🧱 Start Selenium Grid
         run: docker compose -f docker/docker-compose.yml up -d selenium-hub ${{ matrix.browser }}
@@ -99,8 +98,8 @@ jobs:
       - name: 🔮 Run Tests in Container
         run: |
           docker run --network=host \
-          -e TEST_BROWSER=$test_browser \
-          -e TEST_GROUP=$test_group \
+          -e test_browser=$test_browser \
+          -e test_group=$test_group \
           -v ${{ github.workspace }}/allure-results:/app/allure-results \
           --name selenium-tests-${{ matrix.browser }}-${{ matrix.group }} \
           selenium-tests

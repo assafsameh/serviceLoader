@@ -21,8 +21,6 @@ public class SampleTest {
         System.out.println("*************************** Run Before Test Method ***********************************************");
         try {
             System.out.println("Browser Name is: ");
-            System.out.println(System.getenv("TEST_BROWSER"));
-            System.out.println("Browser Name is: ");
             System.out.println(System.getenv("test_browser").toLowerCase());
             switch (System.getenv("test_browser").toLowerCase()) {
                 case "firefox":
