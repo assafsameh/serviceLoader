@@ -5,7 +5,7 @@ services:
   selenium-hub:
     image: selenium/hub:4.21.0
     container_name: selenium-hub   # 👈 required for docker exec selenium-hub
-#    network_mode: "host"  # 👈 makes localhost:4444 work from the host
+#    network_mode: "host"  # 👈 makes localhost:4444 work from only if you are using self hosted agent host
     ports:
       - "4442:4442"  # For router to session queue/distributor
       - "4443:4443"  # For router to node communication
@@ -18,7 +18,7 @@ services:
   chrome:
     image: selenium/node-chrome:4.21.0
     container_name: chrome
-#    network_mode: "host"  # ✅ So node can access hub via localhost:4442/3
+    #    network_mode: "host"  # 👈 makes localhost:4444 work from only if you are using self hosted agent host
     depends_on:
       - selenium-hub
     shm_size: 2gb
@@ -30,7 +30,7 @@ services:
   firefox:
     image: selenium/node-firefox:4.21.0
     container_name: firefox
-#    network_mode: "host"  # ✅ So node can access hub via localhost:4442/3
+    #    network_mode: "host"  # 👈 makes localhost:4444 work from only if you are using self hosted agent host
     depends_on:
       - selenium-hub
     shm_size: 2gb
