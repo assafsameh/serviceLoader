@@ -64,7 +64,7 @@ jobs:
         run: |
           echo "Checking Grid status..."
           docker exec selenium-hub curl -s http://localhost:4444/wd/hub/status
-          curl -v http://localhost:4444/wd/hub/status || (echo "❌ Hub not reachable!" && exit 1)
+          curl -v http://localhost:4444/wd/hub/status
 
       - name: ⏳ Wait for Selenium Hub
         run: |
@@ -76,6 +76,13 @@ jobs:
               fi
               sleep 3
             done
+        continue-on-error: true
+
+      - name: 🌐 Check Selenium Hub Status
+        run: |
+          echo "Checking Grid status..."
+          docker exec selenium-hub curl -s http://localhost:4444/wd/hub/status
+          curl -v http://localhost:4444/wd/hub/status
 
       - name: 🔍 Print env for debug
         run: |

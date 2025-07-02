@@ -17,6 +17,7 @@ services:
 
   chrome:
     image: selenium/node-chrome:4.21.0
+    container_name: chrome
     depends_on:
       - selenium-hub
     shm_size: 2gb
@@ -27,6 +28,7 @@ services:
 
   firefox:
     image: selenium/node-firefox:4.21.0
+    container_name: firefox
     depends_on:
       - selenium-hub
     shm_size: 2gb
