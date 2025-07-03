@@ -1,5 +1,6 @@
-# Maven build artifacts
+# Ignore build artifacts
 target/
+*.log
 
 # IntelliJ and Eclipse project files (optional)
 *.iml
@@ -7,6 +8,7 @@ target/
 .project
 .classpath
 .settings/
+.vscode/
 
 # Logs
 *.log
