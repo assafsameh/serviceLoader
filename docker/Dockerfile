@@ -15,21 +15,7 @@ RUN mvn -B dependency:go-offline
 
 
 # ✅ Copy the rest of the source code
-#COPY . .
-
-# ✅ Copy only necessary files (avoid target/, .git/, etc.)
-COPY src ./src
-COPY test ./test
-COPY settings.xml ./settings.xml
-COPY allure.properties ./allure.properties
-#any standalone Java class
-COPY *.java .
-#e.g., testng.xml or config.xml
-COPY *.xml .
-#e.g., test config
-COPY *.yml .
-#if youre using data files
-COPY *.json .
+COPY . .
 
 
 # ✅ Set default entrypoint and CMD
